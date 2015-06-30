@@ -19,7 +19,8 @@ function startServer() {
     // i.e. proxify ('/my/server/google', 'http://google.com/')
     function proxify(localUrl, webUrl){
         app.get(localUrl, (req, res) => {
-            var remote = webUrl.match(/:(\w+)/ig).reduce((a, t) => {
+            var tokens = webUrl.match(/:(\w+)/ig)
+            var remote = (tokens || []).reduce((a, t) => {
                 return a.replace(new RegExp(t, 'ig'), req.params[t.substr(1)])
             }, webUrl)
             req.pipe( request(remote + querify(req.query)) ).pipe(res)
@@ -31,6 +32,10 @@ function startServer() {
     // examples:
     // proxify('/yummly/recipes', 'http://api.yummly.com/v1/api/recipes');
     // proxify('/brewery/styles', 'https://api.brewerydb.com/v2/styles');
+    var remote = 'http://imgderp-api.herokuapp.com/'
+    proxify('/home', remote+'home.json')
+    proxify('/random', remote+'random.json')
+    proxify('/gallery/:id', remote+'gallery/:id.json')
 
     // all environments
     app.set('port', process.argv[3] || process.env.PORT || 3000)
