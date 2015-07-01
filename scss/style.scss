@@ -1,6 +1,7 @@
 
 @import "../bower_components/normalize-css/normalize.css";
 @import "../bower_components/typeplate-starter-kit/css/typeplate.css";
+@import "../node_modules/sweetalert/dist/sweetalert.css";
 
 /**
  * BOX-SIZING
@@ -96,3 +97,36 @@ img {
 /**
  * YOUR CODE HERE
  */
+
+
+.like-button {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    background-color: green;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 2rem;
+    &:before {
+        content: attr(data-likes) "☞";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
